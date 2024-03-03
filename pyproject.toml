@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "simplecrud"
+version = "1.0.0"
+description = "lets crud"
+authors = ["Pinklesh Parjapati"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.27.1"}
+pydantic = "^2.6.3"
+sqlalchemy = "^2.0.27"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
