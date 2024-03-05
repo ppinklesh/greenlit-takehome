@@ -10,7 +10,6 @@ class Film(Base):
   id = Column(Integer, primary_key=True, index=True)
   title = Column(String)
   description = Column(String)
-  email = Column(String, unique=True, index=True)
   budget = Column(String)
   release_year = Column(DateTime)
   genres = Column(ARRAY(String))

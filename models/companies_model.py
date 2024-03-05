@@ -16,10 +16,9 @@ class Companies(Base):
   timestamp = Column(DateTime)
 
 
-class UserRoleEnum(Enum):
-  writer = "writer"
-  producer = "producer"
-  director = "director"
+class CompanyRoleEnum(Enum):
+  owner = "owner"
+  member = "member"
 
 # users and companies have a many to many relationship where the role is “owner” or “member”
 user_company_table = Table(
@@ -27,5 +26,5 @@ user_company_table = Table(
   Base.metadata,
   Column("user_id", ForeignKey("users.id")),
   Column("company_id", ForeignKey("companies.id")),
-  Column('role', ENUM(UserRoleEnum))  # role is owner or member
+  Column('role', ENUM(CompanyRoleEnum))  # role is owner or member
 )
