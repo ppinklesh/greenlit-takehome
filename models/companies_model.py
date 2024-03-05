@@ -5,17 +5,6 @@ from sqlalchemy.dialects.postgresql import ENUM
 from enum import Enum
 
 
-class Companies(Base):
-  __tablename__ = "companies"
-  id = Column(Integer, primary_key=True, index=True)
-  name = Column(String)
-  contact_email_address = Column(String)
-  phone_number = Column(String, unique=True, index=True)
-  user = relationship("User", secondary="user_company_table", back_populates="companies")
-  films = relationship("Film", back_populates="company")
-  timestamp = Column(DateTime)
-
-
 class CompanyRoleEnum(Enum):
   owner = "owner"
   member = "member"
@@ -24,7 +13,18 @@ class CompanyRoleEnum(Enum):
 user_company_table = Table(
   "user_company_association",
   Base.metadata,
-  Column("user_id", ForeignKey("users.id")),
-  Column("company_id", ForeignKey("companies.id")),
+  Column("id", Integer, primary_key=True, index=True),
+  Column("user_id", ForeignKey("users.id"), index=True),
+  Column("company_id", ForeignKey("companies.id"), index=True),
   Column('role', ENUM(CompanyRoleEnum))  # role is owner or member
 )
+
+class Companies(Base):
+  __tablename__ = "companies"
+  id = Column(Integer, primary_key=True, index=True)
+  name = Column(String, index=True, unique=True, nullable=False)
+  contact_email_address = Column(String)
+  phone_number = Column(String)
+  users = relationship("models.user_model.User", secondary=user_company_table, back_populates="companies")
+  film = relationship("models.film_model.Film", back_populates="companies")
+  timestamp = Column(DateTime)

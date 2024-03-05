@@ -8,8 +8,8 @@ app = FastAPI()
 get_db()
 
 app.include_router(all_routers.user_router)
-app.include_router(all_routers.user_router)
-app.include_router(all_routers.user_router)
+app.include_router(all_routers.film_router)
+app.include_router(all_routers.company_router)
 
 @app.get('/')
 async def home():

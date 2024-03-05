@@ -1,13 +1,19 @@
 from pydantic import BaseModel, EmailStr, constr, validator, conint
 from typing import List
 from datetime import datetime
+from models.film_model import UserRoleEnum
 
 class UserBase(BaseModel):
   first_name: str 
   last_name: str
   email: EmailStr
-  minimun_fee: conint(ge=0)  
+  minimun_fee: conint(ge=0)
   timestamp: datetime = datetime.now()
+
+class AddFilmToUser(BaseModel):
+  user_id: int
+  film_id: int
+  role: UserRoleEnum
 
 class FilmBase(BaseModel):
   title: str
@@ -15,17 +21,15 @@ class FilmBase(BaseModel):
   budget: str
   release_year: datetime
   genres: List[str]
-  user: int
-  company: int
   timestamp: datetime = datetime.now()
+
 
 class CompanyBase(BaseModel):
   name: str
   contact_email_address: EmailStr
   phone_number: constr(min_length=10, max_length=12)
-  user: int
-  films: int
   timestamp: datetime = datetime.now()
+
 
   # Ensure that the phone number contains only digits
   @validator('phone_number')
