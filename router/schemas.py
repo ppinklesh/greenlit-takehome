@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr, constr, validator, conint
 from typing import List
 from datetime import datetime
-from models.film_model import UserRoleEnum
+from models.film_model import Film, UserRoleEnum
 
 class UserBase(BaseModel):
   first_name: str 
@@ -22,6 +22,15 @@ class FilmBase(BaseModel):
   release_year: datetime
   genres: List[str]
   timestamp: datetime = datetime.now()
+  class Config:
+    orm_mode = True
+    from_attributes = True
+
+class UserFilm(BaseModel):
+  role: UserRoleEnum
+  film: FilmBase
+  class Config:
+    arbitrary_types_allowed = True
 
 
 class CompanyBase(BaseModel):
