@@ -16,6 +16,7 @@ class AddFilmToUser(BaseModel):
   role: UserRoleEnum
 
 class FilmBase(BaseModel):
+  id: int
   title: str
   description: str
   budget: str
@@ -23,7 +24,6 @@ class FilmBase(BaseModel):
   genres: List[str]
   timestamp: datetime = datetime.now()
   class Config:
-    orm_mode = True
     from_attributes = True
 
 class UserFilm(BaseModel):
