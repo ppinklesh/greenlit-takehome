@@ -22,6 +22,3 @@ class CompanyController:
         self.db.commit()
         self.db.refresh(new_company)
         return new_company
-    
-    def get_Companies(self):
-        return self.db.query(Companies).first()
